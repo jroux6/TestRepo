@@ -1,6 +1,0 @@
-Lakehouse_Layer,Target_Table_Category,Target_Table_Name,Primary_Key_Column,Durable_Key_Columns,Durable_Key_Name,Surrogate_Key_Columns,Surrogate_Key_Name,Partition_Key,Optimize_Key,Full_Refresh,SCD_Object_Type,Dimension_Type,Business_Logic,Export_Connection_ID,Spark_Write_Mode,Dynamic_View,Depends_On
-gold,healthcare,dim_medications,PATIENT,,medDurable,,medHash,,,Y,2,dim,"Select PATIENT,PAYER,ENCOUNTER,CODE,medDurable,medHash from odpStaging.silver_healthcare_medications",,Append,,odpSilver.healthcare_medications
-silver,healthcare,medications,PATIENT,"PATIENT,PAYER,CODE",medDurable,"PATIENT,ENCOUNTER,CODE",medHash,,,,,,Select * from odpStaging.bronze_healthcare_medications,,,,odpBronze.healthcare_medications
-silver,baseball,Salaries,"PlayerID,YearID","PlayerID,YearID",salaryDurable,"playerID,yearID",salaryHash,,,Y,,,Select * from odpStaging.bronze_baseball_salaries,,,,odpBronze.baseball_salaries
-gold,baseball,dim_salaries,PlayerID,,,,,,,,1,dim,"Select yearID, teamID, lgID, playerID, salaryDurable, salaryHash from odpStaging.silver_baseball_salaries",,Append,,odpSilver.baseball_salaries
-gold,baseball,fact_baseball,,,,,,,,,,fact,"select ss.salary, ds.PlayerID, ds.salaryHash from odpStaging.silver_baseball_salaries ss join gold_baseball.dim_salaries ds on ss.salaryHash = ds.salaryHash",,,,odpGold.baseball.dim_salaries
